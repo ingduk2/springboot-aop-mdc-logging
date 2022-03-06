@@ -1,5 +1,15 @@
 ### SpringBoot AOP-MDC Logging
 
+* Environment
+  * Java 17 (for record)
+  * SpringBoot Web, Aop
+  * Lombok
+
+* TODO
+  * Unit Test
+  * Source
+  * Document
+
 ### reference
 * [Spring MVC Logging With AOP+MDC](https://lucas-k.tistory.com/8)
 * [MCD에 put만 계속한다면](https://namocom.tistory.com/862)
