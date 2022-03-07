@@ -10,6 +10,12 @@
   * Source
   * Document
 
+### 방법
+|ㅁ|AOP사용|
+|-----|---|
+|장점|간단하다|
+|단점|AOP, Aspect를 타지 않는다면 로그를 못 남김|
+
 ### reference
 * [Spring MVC Logging With AOP+MDC](https://lucas-k.tistory.com/8)
 * [MCD에 put만 계속한다면](https://namocom.tistory.com/862)
