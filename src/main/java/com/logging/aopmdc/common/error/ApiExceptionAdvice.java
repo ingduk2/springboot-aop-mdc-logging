@@ -17,7 +17,6 @@ public class ApiExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<Object> base(BaseException e, WebRequest request) {
-        logger.error("custom");
         ErrorCode errorCode = e.getErrorCode();
         HttpStatus httpStatus = errorCode.isClientSideError() ?
                 HttpStatus.BAD_REQUEST :
@@ -39,7 +38,6 @@ public class ApiExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler
     public ResponseEntity<Object> exception(Exception e, WebRequest request) {
-        logger.error("Exception");
         return super.handleExceptionInternal(
                 e,
                 ApiErrorResponse.of(
@@ -56,7 +54,6 @@ public class ApiExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        logger.error("handleExceptionInternal");
         ErrorCode errorCode = status.is4xxClientError() ?
                 ErrorCode.SPRING_BAD_REQUEST :
                 ErrorCode.SPRING_INTERNAL_ERROR;
