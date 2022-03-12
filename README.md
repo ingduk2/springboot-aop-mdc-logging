@@ -9,7 +9,7 @@
   * Unit Test
   * Source
   * Document
-  * AOP Basic -> AOP Annotation -> Interceptor -> Filter
+  * AOP Basic -> AOP Annotation -> Interceptor or Filter
 
 ### 방법
 |ㅁ|AOP사용|
