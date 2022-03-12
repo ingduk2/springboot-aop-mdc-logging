@@ -4,6 +4,7 @@ import com.logging.aopmdc.common.constant.ErrorCode;
 import lombok.*;
 
 @Getter
+@ToString
 @EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApiErrorResponse {
