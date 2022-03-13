@@ -30,11 +30,6 @@ public class TimeService {
 
     @LogExecutionTime
     public TimeDto findTimeByTimeZone(String timeZone) {
-        //Post 인 경우 Controller 에서 @Validated 잡는데
-        //Get 일 때 String 1개 짜리는 모르겠어서 그냥 여기에 잡음.(Dto 주면 잡히나..?)
-        if ( ! StringUtils.hasLength(timeZone))
-            throw new TimeZoneEmptyException();
-
         if ( ! hasAlphaBetOrSlash(timeZone))
             throw new TimeZoneHasNotAlphaBetOrSlashException();
 
