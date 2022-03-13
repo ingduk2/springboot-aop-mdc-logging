@@ -2,7 +2,6 @@ package com.logging.aopmdc.api.time.service;
 
 import com.logging.aopmdc.api.time.dto.TimeDto;
 import com.logging.aopmdc.api.time.repository.TimeRepository;
-import com.logging.aopmdc.common.exception.TimeZoneEmptyException;
 import com.logging.aopmdc.common.exception.TimeZoneHasNotAlphaBetOrSlashException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -32,32 +31,6 @@ class TimeServiceDCITest {
     @Nested
     @DisplayName("fineTimeByTimeZoneMethod Test")
     class Describe_findTimeByTimeZoneMethod {
-
-        @Nested
-        @DisplayName("Param TimeZone Empty String")
-        class Context_Empty_TimeZone {
-            String timeZone = "";
-
-            @Test
-            @DisplayName("Throw TimeZoneEmptyException")
-            void it_Throw_TimeZoneEmptyException() {
-                assertThrows(TimeZoneEmptyException.class,
-                        () -> timeService.findTimeByTimeZone(timeZone));
-            }
-        }
-
-        @Nested
-        @DisplayName("Param TimeZone Null")
-        class Context_Null_TimeZone {
-            String timeZone = null;
-
-            @Test
-            @DisplayName("Throw TimeZoneEmptyException")
-            void it_Throw_TimeZoneEmptyException() {
-                assertThrows(TimeZoneEmptyException.class,
-                        () -> timeService.findTimeByTimeZone(timeZone));
-            }
-        }
 
         @Nested
         @DisplayName("Param TimeZone Number String")

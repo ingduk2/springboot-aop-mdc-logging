@@ -2,7 +2,6 @@ package com.logging.aopmdc.api.time.service;
 
 import com.logging.aopmdc.api.time.dto.TimeDto;
 import com.logging.aopmdc.api.time.repository.TimeRepository;
-import com.logging.aopmdc.common.exception.TimeZoneEmptyException;
 import com.logging.aopmdc.common.exception.TimeZoneHasNotAlphaBetOrSlashException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,28 +26,6 @@ class TimeServiceGWTTest {
     private TimeRepository timeRepository;
 
     @Test
-    @DisplayName("Throw TimeZoneEmptyException")
-    void givenEmptyTimeZone_WhenFindTimeByTimeZone_ThenThrowTimeZoneEmptyException() {
-        // Given
-        String timeZone = "";
-
-        // When & Then
-        assertThrows(TimeZoneEmptyException.class,
-                () -> timeService.findTimeByTimeZone(timeZone));
-    }
-
-    @Test
-    @DisplayName("Throw TimeZoneEmptyException")
-    void givenNullTimeZone_WhenFindTimeByTimeZone_ThenThrowTimeZoneEmptyException() {
-        // Given
-        String timeZone = null;
-
-        // When & Then
-        assertThrows(TimeZoneEmptyException.class,
-                () -> timeService.findTimeByTimeZone(timeZone));
-    }
-
-    @Test
     @DisplayName("Throw TimeZoneHasNotAlphaBetOrSlashException")
     void givenNumberTimeZone_WhenFindTimeByTimeZone_ThenThrowTimeZoneHasNotAlphaBetOrSlashException() {
         // Given
@@ -58,7 +35,6 @@ class TimeServiceGWTTest {
         assertThrows(TimeZoneHasNotAlphaBetOrSlashException.class,
                 () -> timeService.findTimeByTimeZone(timeZone));
     }
-
 
     @Test
     @DisplayName("Return TimeDto")
