@@ -3,6 +3,7 @@ package com.logging.aopmdc.api.time.controller;
 import com.logging.aopmdc.api.response.ApiResponse;
 import com.logging.aopmdc.api.time.dto.TimeDto;
 import com.logging.aopmdc.api.time.service.TimeService;
+import com.logging.aopmdc.common.aspect.log.annotation.LogFull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Slf4j
+@LogFull
 @RestController
 @RequiredArgsConstructor
 public class TimeController {

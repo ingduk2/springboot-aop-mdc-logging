@@ -1,5 +1,7 @@
 package com.logging.aopmdc.common.error;
 
+import com.logging.aopmdc.common.aspect.log.annotation.LogExecutionTime;
+import com.logging.aopmdc.common.aspect.log.annotation.LogReturnValue;
 import com.logging.aopmdc.common.constant.ErrorCode;
 import com.logging.aopmdc.api.response.ApiErrorResponse;
 import com.logging.aopmdc.common.exception.BaseException;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+@LogReturnValue
+@LogExecutionTime // 이게 Method Level 에서는 안먹네.. 흠 aop 안에 내부 호출로 되나..?
 @RestControllerAdvice(annotations = RestController.class)
 public class ApiExceptionAdvice extends ResponseEntityExceptionHandler {
 
