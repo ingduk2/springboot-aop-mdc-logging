@@ -1,4 +1,4 @@
-package com.logging.aopmdc.common.aspect;
+package com.logging.aopmdc.common.aspect.log;
 
 import com.logging.aopmdc.common.constant.LogConst;
 import com.logging.aopmdc.common.exception.ExceptionUtil;
@@ -16,33 +16,36 @@ import java.util.UUID;
 @Component
 public class LogAspect {
 
-    @Pointcut("execution(* com.logging.aopmdc.api.time.controller.*.*(..))")
-    public void controllerPointCut() {}
+    private static final String LOG_POINT_CUT = "com.logging.aopmdc.common.aspect.log.pointcut.LogPointCut.";
+    private static final String WITHIN_LOG_FULL = LOG_POINT_CUT + "withinLogFullAnnotation()";
+    private static final String WITHIN_LOG_EXECUTION_TIME = LOG_POINT_CUT + "withinLogExecutionTimeAnnotation()";
+    private static final String ANNOTATION_LOG_EXECUTION_TIME = LOG_POINT_CUT + "logExecutionTimeAnnotation()";
+    private static final String WITHIN_LOG_RETURN_VALUE = LOG_POINT_CUT + "withinLogReturnValueAnnotation()";
+    private static final String ANNOTATION_LOG_RETURN_VALUE = LOG_POINT_CUT + "logReturnValueAnnotation()";
 
-    @Pointcut("execution(* com.logging.aopmdc.common.error.ApiExceptionAdvice.*(..))")
-    public void apiExceptionAdvice() {}
-
-    @Around("controllerPointCut()")
+    @Around(WITHIN_LOG_FULL + "||" + WITHIN_LOG_EXECUTION_TIME + "||" + ANNOTATION_LOG_EXECUTION_TIME)
     public Object executionTimeLog(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
             Object result = joinPoint.proceed();
             long endTime = System.currentTimeMillis();
-            log.info("[Time] Tx Time : {} ms, Tx End", (endTime - startTime));
+            log.info("[Time] {} Time : {} ms, End", joinPoint.getSignature(), (endTime - startTime));
             return result;
     }
 
-    @Before("controllerPointCut()")
+    @Before(WITHIN_LOG_FULL)
     public void beforeLogging(JoinPoint joinPoint) {
         MDC.put(LogConst.LOG_ID.getValue(), UUID.randomUUID().toString().substring(0, 8));
         log.info("[Before] START TRANSACTION :: {}", MDC.get(LogConst.LOG_ID.getValue()));
     }
 
-    @AfterReturning(pointcut = "controllerPointCut() || apiExceptionAdvice()", returning = "returnValue")
+    @AfterReturning(
+            pointcut = WITHIN_LOG_FULL + "||" + WITHIN_LOG_RETURN_VALUE + "||" + ANNOTATION_LOG_RETURN_VALUE,
+            returning = "returnValue")
     public void afterReturningLogging(JoinPoint joinPoint, Object returnValue) {
         log.info("[AfterReturning] END TRANSACTION :: {}", returnValue);
     }
 
-    @AfterThrowing(pointcut = "controllerPointCut()", throwing = "ex")
+    @AfterThrowing(pointcut = WITHIN_LOG_FULL, throwing = "ex")
     public void afterThrowingLogging(JoinPoint joinPoint, Exception ex) {
         log.error("[AfterThrowing] TX EXCEPTION : {}, {}, Location : {}",
                 ex.getClass().getSimpleName(),
@@ -50,13 +53,4 @@ public class LogAspect {
                 ExceptionUtil.getExceptionLocationInProjectMainPackage(ex));
     }
 
-    /**
-     * AfterThrowing or AfterReturning 후에 동작
-     * @param joinPoint
-     */
-    @After("controllerPointCut()")
-    public void afterLogging(JoinPoint joinPoint) {
-        log.info("[After]");
-//        MDC.clear();
-    }
 }
