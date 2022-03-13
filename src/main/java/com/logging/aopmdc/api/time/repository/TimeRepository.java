@@ -1,6 +1,6 @@
 package com.logging.aopmdc.api.time.repository;
 
-import lombok.RequiredArgsConstructor;
+import com.logging.aopmdc.common.aspect.log.annotation.LogExecutionTime;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 @Repository
 public class TimeRepository {
 
+    @LogExecutionTime
     public ZonedDateTime findTimeByTimeZone(String timeZone) {
         log.info("Repository timeZone : {}", timeZone);
         sleep(2000);

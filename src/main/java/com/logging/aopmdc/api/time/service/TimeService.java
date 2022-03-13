@@ -2,6 +2,7 @@ package com.logging.aopmdc.api.time.service;
 
 import com.logging.aopmdc.api.time.dto.TimeDto;
 import com.logging.aopmdc.api.time.repository.TimeRepository;
+import com.logging.aopmdc.common.aspect.log.annotation.LogExecutionTime;
 import com.logging.aopmdc.common.exception.TimeZoneEmptyException;
 import com.logging.aopmdc.common.exception.TimeZoneHasNotAlphaBetOrSlashException;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ public class TimeService {
                 .collect(Collectors.toList());
     }
 
+    @LogExecutionTime
     public TimeDto findTimeByTimeZone(String timeZone) {
         //Post 인 경우 Controller 에서 @Validated 잡는데
         //Get 일 때 String 1개 짜리는 모르겠어서 그냥 여기에 잡음.(Dto 주면 잡히나..?)
