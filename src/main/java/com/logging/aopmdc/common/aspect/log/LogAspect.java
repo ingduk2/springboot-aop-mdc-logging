@@ -32,12 +32,6 @@ public class LogAspect {
             return result;
     }
 
-    @Before(WITHIN_LOG_FULL)
-    public void beforeLogging(JoinPoint joinPoint) {
-        MDC.put(LogConst.LOG_ID.getValue(), UUID.randomUUID().toString().substring(0, 8));
-        log.info("[Before] START TRANSACTION :: {}", MDC.get(LogConst.LOG_ID.getValue()));
-    }
-
     @AfterReturning(
             pointcut = WITHIN_LOG_FULL + "||" + WITHIN_LOG_RETURN_VALUE + "||" + ANNOTATION_LOG_RETURN_VALUE,
             returning = "returnValue")
